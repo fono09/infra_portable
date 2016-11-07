@@ -22,7 +22,8 @@ DockerとOpenvSwtichが導入済みであること。
 ゲートウェイは``$CT_GATEWAY``で設定し、自動的に外部と疎通が取れるようになります。
 
 ## SoftEtherVPN
-``vpn_server.config``をDocker:(siomiz/softethervpn)[https://hub.docker.com/r/siomiz/softethervpn/]により作成、保存。
+基本的にDocker:[siomiz/softethervpn](https://hub.docker.com/r/siomiz/softethervpn/)に依存。
+リポジトリのルートに``vpn_server.config``を当該のDockerにより作成、保存しておくこと。
 コンテナ内に``veth0``,``veth1``を作成し、``veth0``はアクセス用I/F、``veth1``は設定によりローカルブリッジとしての利用を想定。
-その他の環境変数のパラメータは上記リンク先参照。
+パラメータも当該のDockerよるものなので、詳細なパラメータはそちらを参照。
 
