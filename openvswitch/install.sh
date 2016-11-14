@@ -1,4 +1,5 @@
-source ../settings.env
+BASE_DIR=$(cd $(dirname $0); pwd)
+source $BASE_DIR/$BASE_DIR/../settings.env
 
 ip link set $IFACE promisc on
 
