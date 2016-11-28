@@ -20,13 +20,13 @@ TODO: makefileとかもっとマシな方法にする
 
 ## SoftEtherVPN
 Docker:[siomiz/softethervpn](https://hub.docker.com/r/siomiz/softethervpn/)に依存。
-リポジトリのルートに``vpn_server.config``を当該のDockerにより作成、保存しておくこと。
+``/softether``に``vpn_server.config``を作成、保存しておくこと。
 ``$SE_IF1``は設定によりローカルブリッジとしての利用を想定。
 
 ## Samba
 Docker:[dperson/samba](https://hub.docker.com/r/dperson/samba/)に依存。
-設定ファイルではなく共有ディレクトリをボリュームとして、設定をオプションとして渡す。
+共有するディレクトリをボリュームとして当て、設定をオプションとして渡すこと。
 
-## isc-dhcp-server
-Docker:[jkoelker/isc-dhcpd](https://hub.docker.com/r/jkoelker/isc-dhcpd/)に依存。
-リポジトリのルートに``dhcpd.conf``を作成、保存しておくこと。
+## kea-dhcp4
+Docker:[chakphanu/kea](https://hub.docker.com/r/chakphanu/kea/)に依存。
+``/kea``に``kea-dhcp4.conf``を作成、配置しておくこと。
