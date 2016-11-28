@@ -28,7 +28,7 @@ $ cat infra-portable@.service.pre | envsubst > infra-portable@.service
 ## 各種パラメータ
 ``settings.env``を変更するだけで、基礎的な変更は全て行える。
 
-## OpenvSwitchによるネットワーク構成**必須**
+## OpenvSwitchによるネットワーク構成 *必須*
 ``$VSWTICH_NAME``でスイッチを作成。ホストの``$IFACE``を出口として、既存のネットワークインフラとL2で疎通。
 デフォルトゲートウェイは``$CT_GATEWAY``で設定し、すべてのホストに適用される。
 基本的にすべてのコンテナ内へのアクセス用として、``$**_IF0``にて指定した名前でスイッチ、``$VSWTICH_NAME``へ接続される。
