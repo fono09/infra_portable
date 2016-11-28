@@ -1,0 +1,13 @@
+[Unit]
+Description=infra_portable main bridge
+Documentation=https://github.com/fono09/infra_portale
+After=openvswitch-switch.service
+
+[Service]
+ExecStart=$BASE_DIR/start_stop.sh start
+ExecStop=$BASE_DIR/start_stop.sh start
+Type=oneshot
+ReaminAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

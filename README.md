@@ -2,16 +2,31 @@
 =====================
 
 ## 事前条件
-DockerとOpenvSwtichが導入済みであること。
-*dockerコマンドと、ovs-dockerが通れば特に問題はないはず。*
+DockerとOpenvSwtichが導入済みであること。``docker``,``ovs-docker``コマンドが通ること。
+OpenvSwitchでフラットに動作させるための物理または仮想のI/Fがあること。
 
-## 基本的な使い方
-各種パラメータを設定した後、**管理者権限で** 欲しいサービスの``install.sh``を実行すると設定した通りにL2疎通が取れるインフラが出来上がる。
-TODO: systemdのunitファイルを記述してOpenvSwitchのネットワーク構成に依存して立ち上がるようにする。
+## 入れ方 
+下記操作をして、配置したディレクトリに対応したUnitファイルを作って設置。
+あと、``settins.env``の編集もも忘れずに。
+
+* 仮想スイッチ用のやつ
+
+```
+$ cd openvswtich
+$ export BASE_DIR=`pwd`
+$ cat ovs-infra-portable.service.pre | envsubst > ovs-infra-portable.service
+```
+
+* 仮想スイッチに依存した各種サービス名(ディレクトリ名)でenable/disableして実行するやつ
+
+```
+$ cd ../
+$ export BASE_DIR=`pwd`
+$ cat infra-portable@.service.pre | envsubst > infra-portable@.service
+```
 
 ## 各種パラメータ
 ``settings.env``を変更するだけで、基礎的な変更は全て行える。
-TODO: makefileとかもっとマシな方法にする
 
 ## OpenvSwitchによるネットワーク構成**必須**
 ``$VSWTICH_NAME``でスイッチを作成。ホストの``$IFACE``を出口として、既存のネットワークインフラとL2で疎通。
@@ -30,3 +45,5 @@ Docker:[dperson/samba](https://hub.docker.com/r/dperson/samba/)に依存。
 ## kea-dhcp4
 Docker:[chakphanu/kea](https://hub.docker.com/r/chakphanu/kea/)に依存。
 ``/kea``に``kea-dhcp4.conf``を作成、配置しておくこと。
+
+

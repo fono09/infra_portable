@@ -1,0 +1,19 @@
+BASE_DIR=$(cd $(dirname $0); pwd)
+source $BASE_DIR/../settings.env
+
+if [ $1 == "start" ]; then
+
+	ip link set $IFACE promisc on
+
+	ovs-vsctl add-br $VSWITCH_NAME
+	ovs-vsctl add-port $VSWITCH_NAME $IFACE
+
+elif [ $1 == "stop" ]; then
+
+	ovs-vsctl del-port $VSWITCH_NAME $IFACE
+	ovs-vsctl del-br $VSWITCH_NAME
+
+	ip link set $IFACE promisc off
+else
+	echo 'usage: start_stop.sh {start|stop}'
+fi
