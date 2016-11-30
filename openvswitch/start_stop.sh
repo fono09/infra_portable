@@ -8,12 +8,19 @@ if [ $1 == "start" ]; then
 	ovs-vsctl add-br $VSWITCH_NAME
 	ovs-vsctl add-port $VSWITCH_NAME $IFACE
 
+	exit 0
+
 elif [ $1 == "stop" ]; then
 
 	ovs-vsctl del-port $VSWITCH_NAME $IFACE
 	ovs-vsctl del-br $VSWITCH_NAME
 
 	ip link set $IFACE promisc off
+
+	exit 0
 else
 	echo 'usage: start_stop.sh {start|stop}'
+
+	exit 1
 fi
+

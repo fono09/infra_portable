@@ -6,24 +6,22 @@ DockerとOpenvSwtichが導入済みであること。``docker``,``ovs-docker``�
 OpenvSwitchでフラットに動作させるための物理または仮想のI/Fがあること。
 
 ## 入れ方 
-下記操作をして、配置したディレクトリに対応したUnitファイルを作って設置。
-あと、``settins.env``の編集もも忘れずに。
-
-* 仮想スイッチ用のやつ
+``make.sh``の実行で、配置したディレクトリに対応したUnitファイルを生成。
+systemdのディレクトリへ生成したやつを設置。雑にやるなら下記の通り。
 
 ```
-$ cd openvswtich
-$ export BASE_DIR=`pwd`
-$ cat ovs-infra-portable.service.pre | envsubst > ovs-infra-portable.service
+$ sudo cp *.service /etc/systemd/system
 ```
 
-* 仮想スイッチに依存した各種サービス名(ディレクトリ名)でenable/disableして実行するやつ
+## 使い方
+あと、``settins.env``の編集も忘れずに。
+``systemd {enable|disable|start|stop} infra-portable@{service_name}``の操作が行える。
+実際は、``service_name``のディレクトリ直下にある``start_stop.sh {start|stop}``を動かしているだけ。 
 
-```
-$ cd ../
-$ export BASE_DIR=`pwd`
-$ cat infra-portable@.service.pre | envsubst > infra-portable@.service
-```
+## 増やし方
+enable時の@以下はディレクトリ名となっているので、
+リポジトリにフォルダを追加し、その配下に``start_stop.sh {start|stop}``で、
+開始終了できる形態になっていれば実は何でもよかったりする。
 
 ## 各種パラメータ
 ``settings.env``を変更するだけで、基礎的な変更は全て行える。
