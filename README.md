@@ -28,7 +28,7 @@ enable時の@以下はディレクトリ名となっているので、
 リポジトリにフォルダを追加し、その配下に``start_stop.sh {start|stop}``で、
 開始終了できる形態になっていれば実は何でもよかったりする。
 
-## 各種パラメータ
+## 各種パラメータと構成
 ``settings.env``を変更するだけで、基礎的な変更は全て行える。
 
 ### Networksセクション
@@ -49,15 +49,22 @@ L2対外疎通をとるので、デフォルトゲートウェイの設定
 * ``(\w+)_IF(\d)``
 サービス``$1``のコンテナに当てる、``$2``番目のインターフェイス名(String)
 
+### OpenvSwitchによるネットワーク構成 *必須*
+``Networks``セクションに記述されている。
+
 ### SoftEtherVPN
-特記事項なし
+Docker:[siomiz/softethervpn](https://hub.docker.com/r/siomiz/softethervpn/)に依存。
+``/softether``に``vpn_server.config``を作成、保存しておくこと。
 
 ### Samba
+Docker:[dperson/samba](https://hub.docker.com/r/dperson/samba/)に依存。
 * ``SMB_VOLUMES``
 Dockerの``-v /foo:/bar -v /buzz:/foobar...``の形で書く。
 * ``SMB_OPTIONS``
-[DockerHub:dperson/samba](https://hub.docker.com/r/dperson/samba/)のOptionsを参照
+DockerHubのページのOptionsを参照
 
 ### kea-dhcp
+Docker:[chakphanu/kea](https://hub.docker.com/r/chakphanu/kea/)に依存。
+``/kea``に``kea-dhcp4.conf``を作成、配置しておくこと。
 特記事項なし
 
