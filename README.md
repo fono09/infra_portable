@@ -18,7 +18,7 @@ $ ./make.sh
 ```
 
 ## 使い方
-あと、``settins.env``の編集も忘れずに。
+あと、``settins.env``の編集も忘れずに。サンプルは``settings.env.pre``
 ``systemd {enable|disable|start|stop} infra-portable@{service_name}``の操作が行える。
 実際は、``service_name``のディレクトリ直下にある``start_stop.sh {start|stop}``を動かしているだけ。 
 
@@ -31,22 +31,33 @@ enable時の@以下はディレクトリ名となっているので、
 ## 各種パラメータ
 ``settings.env``を変更するだけで、基礎的な変更は全て行える。
 
-## OpenvSwitchによるネットワーク構成 *必須*
-``$VSWTICH_NAME``でスイッチを作成。ホストの``$IFACE``を出口として、既存のネットワークインフラとL2で疎通。
-デフォルトゲートウェイは``$CT_GATEWAY``で設定し、すべてのホストに適用される。
-基本的にすべてのコンテナ内へのアクセス用として、``$**_IF0``にて指定した名前でスイッチ、``$VSWTICH_NAME``へ接続される。
+### Networksセクション
+* ``IFACE``
+出口となる物理インターフェイス名
+* ``VSWITCH_NAME``
+仮想スイッチの名前(任意)
+* ``CT_GATEWAY``
+L2対外疎通をとるので、デフォルトゲートウェイの設定
+(0番目のインターフェイスに当たる)
 
-## SoftEtherVPN
-Docker:[siomiz/softethervpn](https://hub.docker.com/r/siomiz/softethervpn/)に依存。
-``/softether``に``vpn_server.config``を作成、保存しておくこと。
-``$SE_IF1``は設定によりローカルブリッジとしての利用を想定。
+### 一般
+* ``(\w+)_CT_ADDR``
+サービス``$1``のコンテナに当てるIPアドレス(IPv4 address)
+(0番目のインターフェイスに当たる)
+* ``(\w+)_CT_NAME``
+サービス``$1``のコンテナ名(String)
+* ``(\w+)_IF(\d)``
+サービス``$1``のコンテナに当てる、``$2``番目のインターフェイス名(String)
 
-## Samba
-Docker:[dperson/samba](https://hub.docker.com/r/dperson/samba/)に依存。
-共有するディレクトリをボリュームとして当て、設定をオプションとして渡すこと。
+### SoftEtherVPN
+特記事項なし
 
-## kea-dhcp4
-Docker:[chakphanu/kea](https://hub.docker.com/r/chakphanu/kea/)に依存。
-``/kea``に``kea-dhcp4.conf``を作成、配置しておくこと。
+### Samba
+* ``SMB_VOLUMES``
+Dockerの``-v /foo:/bar -v /buzz:/foobar...``の形で書く。
+* ``SMB_OPTIONS``
+[DockerHub:dperson/samba](https://hub.docker.com/r/dperson/samba/)のOptionsを参照
 
+### kea-dhcp
+特記事項なし
 
