@@ -7,10 +7,14 @@ OpenvSwitchでフラットに動作させるための物理または仮想のI/F
 
 ## 入れ方 
 ``make.sh``の実行で、配置したディレクトリに対応したUnitファイルを生成。
-systemdのディレクトリへ生成したやつを設置。雑にやるなら下記の通り。
+systemdのディレクトリへ生成したやつを設置。あと、systemd側でdaemon-reload/enableする。
+このテンプレートで展開する全てのサービスは``infra-portable-openvswitch``に依存している。
 
 ```
-$ sudo cp *.service /etc/systemd/system
+$ ./make.sh
+# cp *.service /etc/systemd/system
+# systemctl daemon-reload
+# systemctl enable infra-portable-openvswtich
 ```
 
 ## 使い方
@@ -19,6 +23,7 @@ $ sudo cp *.service /etc/systemd/system
 実際は、``service_name``のディレクトリ直下にある``start_stop.sh {start|stop}``を動かしているだけ。 
 
 ## 増やし方
+``/skel``を参照。
 enable時の@以下はディレクトリ名となっているので、
 リポジトリにフォルダを追加し、その配下に``start_stop.sh {start|stop}``で、
 開始終了できる形態になっていれば実は何でもよかったりする。
