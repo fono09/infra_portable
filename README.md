@@ -66,5 +66,4 @@ DockerHubのページのOptionsを参照
 ### kea-dhcp
 Docker:[chakphanu/kea](https://hub.docker.com/r/chakphanu/kea/)に依存。
 ``/kea``に``kea-dhcp4.conf``を作成、配置しておくこと。
-特記事項なし
 
