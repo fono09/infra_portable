@@ -6,7 +6,7 @@ source $BASE_DIR/../settings.env
 case "$1" in
 	"start" )
 		docker run -d --net=none --name $XX_CT_NAME ubuntu /bin/bash
-		ovs-docker add-port $VSWTICH_NAME $XX_IF0 $XX_CT_NAME --ipaddress=$XX_CT_ADDR --gateway=$CT_GATEWAY
+		ovs-docker add-port $VSWITCH_NAME $XX_IF0 $XX_CT_NAME --ipaddress=$XX_CT_ADDR --gateway=$CT_GATEWAY
 		exit 0
 	;;
 	"stop" )
