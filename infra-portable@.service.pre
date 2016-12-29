@@ -1,7 +1,8 @@
 [Unit]
 Description=OpenVSwtich virtual daemons
 Documentation=https://github.com/fono09/infra_portale
-After=infra-portable-openvswitch.service
+After=infra-portable-openvswitch.service docker.service
+Requires=infra-portable-openvswitch.service docker.service
 
 [Service]
 ExecStart=/bin/bash -c "$BASE_DIR/%i/start_stop.sh start"
