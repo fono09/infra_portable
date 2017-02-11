@@ -2,5 +2,8 @@ vpn_server.config
 settings.env
 *.service
 kea-dhcp/kea-dhcp4.conf
+config.env
 afpd/
 mc-kstm/
+caddy/
+
